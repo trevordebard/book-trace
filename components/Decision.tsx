@@ -15,7 +15,7 @@ export const Decision: FunctionComponent = () => (
       <Card>
         <Heading size="3xl">I would like to...</Heading>
         <Stack spacing={5} pt={10}>
-          <NextLink href="/" passHref>
+          <NextLink href="/search" passHref>
             <Link color="orange.500" fontWeight="bold">Search for a book</Link>
           </NextLink>
           <NextLink passHref={true} href="/">
