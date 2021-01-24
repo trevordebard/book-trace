@@ -1,8 +1,8 @@
-import { Box } from "@chakra-ui/react";
+import { Box, BoxProps } from "@chakra-ui/react";
 import { FunctionComponent } from "react";
 
 
-export const Card: FunctionComponent = ({ children }) => (
+export const Card: FunctionComponent<BoxProps> = ({ children, ...props }) => (
   <Box
     width="fit-content"
     mx="auto"
@@ -11,6 +11,7 @@ export const Card: FunctionComponent = ({ children }) => (
     borderRadius="xl"
     bg="white"
     boxShadow="rgba(149, 157, 165, 0.2) 0px 8px 24px"
+    {...props}
   >
     {children}
   </Box>
