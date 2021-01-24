@@ -4,7 +4,7 @@ import { FunctionComponent } from "react";
 
 export const Card: FunctionComponent<BoxProps> = ({ children, ...props }) => (
   <Box
-    width="fit-content"
+    width="2xl"
     mx="auto"
     padding={16}
     borderWidth="1px"

@@ -1,34 +1,30 @@
 import { Flex, Heading, Stack, HStack, Input, Button, Text, Box, Divider, StackItem } from "@chakra-ui/react";
-import { FunctionComponent, useState } from "react";
+import { Fragment, FunctionComponent, useState } from "react";
 import { Card } from "components/Shared/Card";
 import { Book } from "types";
-
-interface SearchResponse {
-  numFound: number,
-  docs: Book[]
-}
-const mockResponse: SearchResponse = {
-  numFound: 10,
-  docs: [
-    { title: "Deep Work", author_name: "Cal Newport", id_amazon: "120391", subject: ["Self Help"] },
-    { title: "Slaughterhouse 5", author_name: "Kurt Vonnegut", id_amazon: "120323491", subject: ["fiction"] },
-    { title: "Sapiens", author_name: "Yuval Noah Harari", id_amazon: "12032541391", subject: ["fiction"] },
-  ]
-}
+import { searchBook } from 'lib/searchBook'
 
 export const Search: FunctionComponent = () => {
   const [searchValue, setSearchValue] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<null | string>(null)
-  const [searchResult, setSearchResult] = useState<null | SearchResponse>(null)
+  const [loading, setLoading] = useState<boolean>(false)
+  const [searchResult, setSearchResult] = useState<null | Book[]>(null)
 
   const handleChange = e => setSearchValue(e.target.value)
 
-  const handleClick = e => {
+  const handleSearch = async e => {
     e.preventDefault()
     if (searchValue) {
-      // TODO: Search
       setErrorMessage(null)
-      setSearchResult(mockResponse)
+      setLoading(true)
+      let res = await searchBook(searchValue)
+      setLoading(false)
+      if (res.error) {
+        setErrorMessage(res.error)
+      }
+      else if (res.books) {
+        setSearchResult(res.books)
+      }
     }
     else {
       setErrorMessage("You must search for something")
@@ -49,7 +45,9 @@ export const Search: FunctionComponent = () => {
             <Box>
               <HStack>
                 <Input placeholder="Hunger Games" value={searchValue} onChange={handleChange} />
-                <Button colorScheme="orange" onClick={handleClick}>Search</Button>
+                <Button isLoading={loading} colorScheme="orange" onClick={handleSearch} disabled={loading}>
+                  Search
+                  </Button>
               </HStack>
               {errorMessage && <Text color="red.500">{errorMessage}</Text>}
             </Box>
@@ -62,12 +60,12 @@ export const Search: FunctionComponent = () => {
 }
 
 
-const SearchResult: FunctionComponent<{ result: SearchResponse }> = ({ result }) => (
+const SearchResult: FunctionComponent<{ result: Book[] }> = ({ result }) => (
   <Box >
     <Stack spacing={3}>
-      {result.docs.map((book, i) => (
-        <>
-          <StackItem key={book.id_amazon}>
+      {result.map((book, i) => (
+        <Fragment key={`${book.title}-${Math.random()}`}>
+          <StackItem >
             <HStack justify="space-between">
               <Box>
                 <Text color="gray.900" fontWeight="bold">{book.title}</Text>
@@ -76,11 +74,12 @@ const SearchResult: FunctionComponent<{ result: SearchResponse }> = ({ result })
               <Button size="sm" >Add to list</Button>
             </HStack>
           </StackItem>
-          <StackItem>
+          <StackItem key={`${book.id_amazon}-${i}`}>
             <Divider />
           </StackItem>
-        </>
+        </Fragment>
       ))}
+      {result.length === 0 && <Text color="red.500">No Results Found</Text>}
     </Stack>
   </Box>
 )
