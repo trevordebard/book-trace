@@ -18,7 +18,7 @@ export const Decision: FunctionComponent = () => (
           <NextLink href="/search" passHref>
             <Link color="orange.500" fontWeight="bold">Search for a book</Link>
           </NextLink>
-          <NextLink passHref={true} href="/">
+          <NextLink href="/list" passHref>
             <Link color="orange.500" fontWeight="bold">View my reading list</Link>
           </NextLink>
         </Stack>
