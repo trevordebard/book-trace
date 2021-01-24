@@ -1,19 +1,12 @@
 import { Flex, Heading, Stack, HStack, Input, Button, Text, Box, Divider, StackItem } from "@chakra-ui/react";
 import { FunctionComponent, useState } from "react";
 import { Card } from "components/Shared/Card";
+import { Book } from "types";
 
 interface SearchResponse {
   numFound: number,
   docs: Book[]
 }
-
-interface Book {
-  title: string,
-  author_name: string,
-  id_amazon: string,
-  subject: [string]
-}
-
 const mockResponse: SearchResponse = {
   numFound: 10,
   docs: [
@@ -74,8 +67,8 @@ const SearchResult: FunctionComponent<{ result: SearchResponse }> = ({ result })
     <Stack spacing={3}>
       {result.docs.map((book, i) => (
         <>
-          <StackItem key={book.id_amazon} backgroundColor="green">
-            <HStack justify="space-between" backgroundColor="blue">
+          <StackItem key={book.id_amazon}>
+            <HStack justify="space-between">
               <Box>
                 <Text color="gray.900" fontWeight="bold">{book.title}</Text>
                 <Text color="gray.500" fontSize="sm">{book.author_name}</Text>
