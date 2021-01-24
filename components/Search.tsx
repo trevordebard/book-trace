@@ -1,14 +1,15 @@
 import { Flex, Heading, Stack, HStack, Input, Button, Text, Box, Divider, StackItem } from "@chakra-ui/react";
 import { Fragment, FunctionComponent, useState } from "react";
 import { Card } from "components/Shared/Card";
-import { Book } from "types";
+import { OpenLibraryBook } from "types";
 import { searchBook } from 'lib/searchBook'
+import { addBookToList } from "lib/addBookToList";
 
 export const Search: FunctionComponent = () => {
   const [searchValue, setSearchValue] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<null | string>(null)
   const [loading, setLoading] = useState<boolean>(false)
-  const [searchResult, setSearchResult] = useState<null | Book[]>(null)
+  const [searchResult, setSearchResult] = useState<null | OpenLibraryBook[]>(null)
 
   const handleChange = e => setSearchValue(e.target.value)
 
@@ -60,7 +61,7 @@ export const Search: FunctionComponent = () => {
 }
 
 
-const SearchResult: FunctionComponent<{ result: Book[] }> = ({ result }) => (
+const SearchResult: FunctionComponent<{ result: OpenLibraryBook[] }> = ({ result }) => (
   <Box >
     <Stack spacing={3}>
       {result.map((book, i) => (
@@ -68,10 +69,10 @@ const SearchResult: FunctionComponent<{ result: Book[] }> = ({ result }) => (
           <StackItem >
             <HStack justify="space-between">
               <Box>
-                <Text color="gray.900" fontWeight="bold">{book.title}</Text>
+                <Text color="gray.900" fontWeight="bold" maxW={400} isTruncated>{book.title}</Text>
                 <Text color="gray.500" fontSize="sm">{book.author_name}</Text>
               </Box>
-              <Button size="sm" >Add to list</Button>
+              <Button size="sm" onClick={() => addBookToList('placeholder', book)}>Add to list</Button>
             </HStack>
           </StackItem>
           <StackItem key={`${book.id_amazon}-${i}`}>
