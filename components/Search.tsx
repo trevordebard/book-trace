@@ -8,7 +8,7 @@ import { useUser } from "lib/User/useUser";
 
 export const Search: FunctionComponent = () => {
   const [searchValue, setSearchValue] = useState<string>('')
-  const [errorMessage, setErrorMessage] = useState<null | string>(null)
+  const [errorMessage, setErrorMessage] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   const [searchResult, setSearchResult] = useState<null | OpenLibraryBook[]>(null)
 
@@ -17,7 +17,7 @@ export const Search: FunctionComponent = () => {
   const handleSearch = async e => {
     e.preventDefault()
     if (searchValue) {
-      setErrorMessage(null)
+      setErrorMessage('')
       setLoading(true)
       let res = await searchBook(searchValue)
       setLoading(false)
@@ -64,9 +64,32 @@ export const Search: FunctionComponent = () => {
 
 const SearchResult: FunctionComponent<{ result: OpenLibraryBook[] }> = ({ result }) => {
   const { username } = useUser()
+  const [loading, setLoading] = useState<boolean>(false)
+  const [errorMessage, setErrorMessage] = useState<string>('')
+  const [successMessage, setSuccessMessage] = useState<string>('')
+
+  const handleAdd = async (book: OpenLibraryBook) => {
+    if (!username) {
+      setErrorMessage('You are not logged in')
+    } else {
+      setErrorMessage('')
+      setSuccessMessage('')
+      setLoading(true)
+      try {
+        await addBookToList(username, book)
+        setSuccessMessage(`${book.title} added!`)
+      } catch (e) {
+        setErrorMessage(`Error adding ${book.title} to list`)
+      } finally {
+        setLoading(false)
+      }
+    }
+  }
   return (
     <Box >
       <Stack spacing={3}>
+        {successMessage && <Text fontWeight="bold" color="green.500">{successMessage}</Text>}
+        {errorMessage && <Text color="red.500">{errorMessage}</Text>}
         {result.map((book, i) => (
           <Fragment key={`${book.title}-${Math.random()}`}>
             <StackItem >
@@ -75,7 +98,7 @@ const SearchResult: FunctionComponent<{ result: OpenLibraryBook[] }> = ({ result
                   <Text color="gray.900" fontWeight="bold" maxW={400} isTruncated>{book.title}</Text>
                   <Text color="gray.500" fontSize="sm">{book.author_name}</Text>
                 </Box>
-                <Button size="sm" onClick={() => addBookToList(username, book)}>Add to list</Button>
+                <Button size="sm" onClick={() => handleAdd(book)} isLoading={loading}>Add to list</Button>
               </HStack>
             </StackItem>
             <StackItem key={`${book.id_amazon}-${i}`}>
