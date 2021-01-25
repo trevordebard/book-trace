@@ -1,24 +1,13 @@
 
 import { Flex, Heading, Stack, HStack, Button, Text, Box, Divider, StackItem } from "@chakra-ui/react";
-import { FunctionComponent, useState } from "react";
+import { Fragment, FunctionComponent } from "react";
 import { Card } from "components/Shared/Card";
-import { Book } from "types";
+import { Book } from "@prisma/client";
 
-interface ReadingListResponse {
+interface ReadingListProps {
   books: Book[]
 }
-
-const mockResponse: ReadingListResponse = {
-  books: [
-    { title: "Deep Work", author_name: "Cal Newport", id_amazon: "120391", subject: ["Self Help"] },
-    { title: "Slaughterhouse 5", author_name: "Kurt Vonnegut", id_amazon: "120323491", subject: ["fiction"] },
-    { title: "Sapiens", author_name: "Yuval Noah Harari", id_amazon: "12032541391", subject: ["fiction"] },
-  ]
-}
-
-export const ReadingList: FunctionComponent = () => {
-  const [searchResult, setSearchResult] = useState<ReadingListResponse>(mockResponse)
-
+export const ReadingList: FunctionComponent<ReadingListProps> = ({ books }) => {
   return (
     <>
       <Flex
@@ -31,7 +20,7 @@ export const ReadingList: FunctionComponent = () => {
         <Card>
           <Heading size="3xl" textAlign="center">My List</Heading>
           <Stack spacing={10} pt={10} minW={400}>
-            <ReadingItems books={searchResult.books} />
+            <ReadingItems books={books} />
           </Stack>
         </Card>
       </Flex>
@@ -44,11 +33,11 @@ const ReadingItems: FunctionComponent<{ books: Book[] }> = ({ books }) => (
   <Box >
     <Stack spacing={3}>
       {books.map((book, i) => (
-        <>
-          <StackItem key={book.id_amazon}>
+        <Fragment key={`${book.title}-${Math.random()}`}>
+          <StackItem>
             <HStack justify="space-between">
               <Box>
-                <Text color="gray.900" fontWeight="bold">{book.title}</Text>
+                <Text color="gray.900" fontWeight="bold" maxW={400} isTruncated>{book.title}</Text>
                 <Text color="gray.500" fontSize="sm">{book.author_name}</Text>
               </Box>
               <Button size="sm" >Mark as Read</Button>
@@ -57,8 +46,9 @@ const ReadingItems: FunctionComponent<{ books: Book[] }> = ({ books }) => (
           <StackItem>
             <Divider />
           </StackItem>
-        </>
+        </Fragment>
       ))}
+      {books.length === 0 && <Text color="red.500">No Books Found</Text>}
     </Stack>
   </Box>
 )
