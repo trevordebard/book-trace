@@ -8,7 +8,7 @@ interface addBookToListResponse {
 
 export async function addBookToList(username: string, book: OpenLibraryBook): Promise<addBookToListResponse> {
   try {
-    await axios.post('http://localhost:3000/api/book', { username, ...book })
+    await axios.post(`${process.env.API_URL}/book`, { username, ...book })
     return { success: true }
   } catch (e) {
     return { success: false, errorMessage: `There was a problem adding ${book.title}` }
