@@ -1,26 +1,25 @@
-import { Box, Button, Flex, FormLabel, Heading, HStack, Input, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, FormLabel, Heading, HStack, Input, localStorageManager, Stack, Text } from "@chakra-ui/react";
 import { FunctionComponent, useState } from "react";
 import { Card } from "components/Shared/Card";
 import { useRouter } from 'next/router'
+import { useUser } from "lib/User/useUser";
 
 
 export const Landing: FunctionComponent = () => {
-  const [username, setUsername] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<null | string>(null)
-
+  const { setUsername: setGlobalUsername } = useUser()
+  const [username, setUsername] = useState<string>('')
   const router = useRouter()
   const handleChange = e => setUsername(e.target.value)
 
   const handleClick = e => {
     e.preventDefault()
     if (username) {
-      router.push({
-        pathname: '/decision',
-        query: { username }
-      })
+      setGlobalUsername(username)
+      router.push('/decision')
     }
     else {
-      setErrorMessage("You must enter a username")
+      setErrorMessage("A username has not been set")
     }
   }
 

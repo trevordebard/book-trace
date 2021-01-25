@@ -4,6 +4,7 @@ import { Card } from "components/Shared/Card";
 import { OpenLibraryBook } from "types";
 import { searchBook } from 'lib/searchBook'
 import { addBookToList } from "lib/addBookToList";
+import { useUser } from "lib/User/useUser";
 
 export const Search: FunctionComponent = () => {
   const [searchValue, setSearchValue] = useState<string>('')
@@ -61,26 +62,29 @@ export const Search: FunctionComponent = () => {
 }
 
 
-const SearchResult: FunctionComponent<{ result: OpenLibraryBook[] }> = ({ result }) => (
-  <Box >
-    <Stack spacing={3}>
-      {result.map((book, i) => (
-        <Fragment key={`${book.title}-${Math.random()}`}>
-          <StackItem >
-            <HStack justify="space-between">
-              <Box>
-                <Text color="gray.900" fontWeight="bold" maxW={400} isTruncated>{book.title}</Text>
-                <Text color="gray.500" fontSize="sm">{book.author_name}</Text>
-              </Box>
-              <Button size="sm" onClick={() => addBookToList('placeholder', book)}>Add to list</Button>
-            </HStack>
-          </StackItem>
-          <StackItem key={`${book.id_amazon}-${i}`}>
-            <Divider />
-          </StackItem>
-        </Fragment>
-      ))}
-      {result.length === 0 && <Text color="red.500">No Results Found</Text>}
-    </Stack>
-  </Box>
-)
+const SearchResult: FunctionComponent<{ result: OpenLibraryBook[] }> = ({ result }) => {
+  const { username } = useUser()
+  return (
+    <Box >
+      <Stack spacing={3}>
+        {result.map((book, i) => (
+          <Fragment key={`${book.title}-${Math.random()}`}>
+            <StackItem >
+              <HStack justify="space-between">
+                <Box>
+                  <Text color="gray.900" fontWeight="bold" maxW={400} isTruncated>{book.title}</Text>
+                  <Text color="gray.500" fontSize="sm">{book.author_name}</Text>
+                </Box>
+                <Button size="sm" onClick={() => addBookToList(username, book)}>Add to list</Button>
+              </HStack>
+            </StackItem>
+            <StackItem key={`${book.id_amazon}-${i}`}>
+              <Divider />
+            </StackItem>
+          </Fragment>
+        ))}
+        {result.length === 0 && <Text color="red.500">No Results Found</Text>}
+      </Stack>
+    </Box>
+  )
+}
