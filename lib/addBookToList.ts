@@ -1,6 +1,16 @@
-import { OpenLibraryBook } from "types";
 import axios from "axios";
+import { OpenLibraryBook } from "types";
 
-export async function addBookToList(username: string, book: OpenLibraryBook) {
-  const res = axios.put('http://localhost:3000/api/book', { username, ...book })
+interface addBookToListResponse {
+  success: boolean,
+  errorMessage?: string
+}
+
+export async function addBookToList(username: string, book: OpenLibraryBook): Promise<addBookToListResponse> {
+  try {
+    await axios.post('http://localhost:3000/api/book', { username, ...book })
+    return { success: true }
+  } catch (e) {
+    return { success: false, errorMessage: `There was a problem adding ${book.title}` }
+  }
 }

@@ -75,14 +75,13 @@ const SearchResult: FunctionComponent<{ result: OpenLibraryBook[] }> = ({ result
       setErrorMessage('')
       setSuccessMessage('')
       setLoading(true)
-      try {
-        await addBookToList(username, book)
+      let res = await addBookToList(username, book);
+      if (res.success) {
         setSuccessMessage(`${book.title} added!`)
-      } catch (e) {
-        setErrorMessage(`Error adding ${book.title} to list`)
-      } finally {
-        setLoading(false)
+      } else if (res.errorMessage) {
+        setErrorMessage(res.errorMessage)
       }
+      setLoading(false)
     }
   }
   return (
