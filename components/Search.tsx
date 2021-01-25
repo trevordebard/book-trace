@@ -1,10 +1,11 @@
-import { Flex, Heading, Stack, HStack, Input, Button, Text, Box, Divider, StackItem } from "@chakra-ui/react";
-import { Fragment, FunctionComponent, useState } from "react";
+import { Flex, Heading, Stack, HStack, Input, Button, Text, Box } from "@chakra-ui/react";
+import { FunctionComponent, useState } from "react";
 import { Card } from "components/Shared/Card";
 import { OpenLibraryBook } from "types";
 import { searchBook } from 'lib/searchBook'
 import { addBookToList } from "lib/addBookToList";
 import { useUser } from "lib/User/useUser";
+import { BookListItem } from "./Shared/BookListItem";
 
 export const Search: FunctionComponent = () => {
   const [searchValue, setSearchValue] = useState<string>('')
@@ -42,7 +43,7 @@ export const Search: FunctionComponent = () => {
         bg="gray.100"
       >
         <Card>
-          <Heading size="3xl">Search for a Book </Heading>
+          <Heading size="3xl" textAlign="center">Search for a Book </Heading>
           <Stack spacing={10} pt={10}>
             <Box>
               <HStack>
@@ -60,7 +61,6 @@ export const Search: FunctionComponent = () => {
     </>
   )
 }
-
 
 const SearchResult: FunctionComponent<{ result: OpenLibraryBook[] }> = ({ result }) => {
   const { username } = useUser()
@@ -91,20 +91,9 @@ const SearchResult: FunctionComponent<{ result: OpenLibraryBook[] }> = ({ result
         {successMessage && <Text fontWeight="bold" color="green.500">{successMessage}</Text>}
         {errorMessage && <Text color="red.500">{errorMessage}</Text>}
         {result.map((book, i) => (
-          <Fragment key={`${book.title}-${Math.random()}`}>
-            <StackItem >
-              <HStack justify="space-between">
-                <Box>
-                  <Text color="gray.900" fontWeight="bold" maxW={400} isTruncated>{book.title}</Text>
-                  <Text color="gray.500" fontSize="sm">{book.author_name}</Text>
-                </Box>
-                <Button size="sm" onClick={() => handleAdd(book)} isLoading={loading}>Add to list</Button>
-              </HStack>
-            </StackItem>
-            <StackItem key={`${book.id_amazon}-${i}`}>
-              <Divider />
-            </StackItem>
-          </Fragment>
+          <BookListItem title={book.title} author={book.author_name} key={`${book.title}-${Math.random()}`}>
+            <Button size="sm" onClick={() => handleAdd(book)} isLoading={loading}>Add to list</Button>
+          </BookListItem>
         ))}
         {result.length === 0 && <Text color="red.500">No Results Found</Text>}
       </Stack>

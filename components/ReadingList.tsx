@@ -1,8 +1,9 @@
 
 import { Flex, Heading, Stack, HStack, Button, Text, Box, Divider, StackItem } from "@chakra-ui/react";
-import { Fragment, FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import { Card } from "components/Shared/Card";
 import { Book } from "@prisma/client";
+import { BookListItem } from "./Shared/BookListItem";
 
 interface ReadingListProps {
   books: Book[]
@@ -33,22 +34,11 @@ const ReadingItems: FunctionComponent<{ books: Book[] }> = ({ books }) => (
   <Box >
     <Stack spacing={3}>
       {books.map((book, i) => (
-        <Fragment key={`${book.title}-${Math.random()}`}>
-          <StackItem>
-            <HStack justify="space-between">
-              <Box>
-                <Text color="gray.900" fontWeight="bold" maxW={400} isTruncated>{book.title}</Text>
-                <Text color="gray.500" fontSize="sm">{book.author_name}</Text>
-              </Box>
-              <Button size="sm" >Mark as Read</Button>
-            </HStack>
-          </StackItem>
-          <StackItem>
-            <Divider />
-          </StackItem>
-        </Fragment>
+        <BookListItem title={book.title} author={book.author_name[0]} key={`${book.title}-${Math.random()}`}>
+          <Button size="sm">Mark as Read</Button>
+        </BookListItem>
       ))}
       {books.length === 0 && <Text color="red.500">No Books Found</Text>}
     </Stack>
-  </Box>
+  </Box >
 )
