@@ -1,10 +1,9 @@
 import Head from "next/head"
 import { ChakraProvider } from "@chakra-ui/react"
-import { AppProps } from "next/dist/next-server/lib/router/router"
 import { UserContext } from "lib/User/UserContext";
 import { useLocalStorage } from "lib/useLocalStorage";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }) {
   const [username, setUsername] = useLocalStorage('username', '')
   return (
     <ChakraProvider>

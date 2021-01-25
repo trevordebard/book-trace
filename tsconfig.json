@@ -2,7 +2,7 @@
   "compilerOptions": {
     "sourceMap": true,
     "outDir": "dist",
-    "strict": true,
+    "strict": false,
     "baseUrl": ".",
     "lib": [
       "esnext"
@@ -22,7 +22,8 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "pages/_app.js"
   ],
   "exclude": [
     "node_modules"
