@@ -16,14 +16,14 @@ export const ReadingList: FunctionComponent<ReadingListProps> = ({ books }) => {
   return (
     <Card>
       <Box textAlign="center">
-        <Heading size="3xl" mb={2}>My List</Heading>
+        <Heading size="2xl" mb={2}>My List</Heading>
         <NextLink href="/search" passHref>
           <Link color="orange.500" fontWeight="bold">
             Search for books
          </Link>
         </NextLink>
       </Box>
-      <Stack spacing={[4, 10]} pt={10}>
+      <Stack spacing={[4, 10]} pt={[4, 10]} >
         <Box overflowY="scroll" maxH={300}>
           <ReadingItems books={books} />
         </Box>

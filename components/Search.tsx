@@ -39,12 +39,12 @@ export const Search: FunctionComponent = () => {
   return (
     <Card>
       <Box textAlign="center">
-        <Heading size="3xl" mb={2}>Search for a Book</Heading>
+        <Heading size="2xl" mb={2}>Search for a Book</Heading>
         <NextLink href={`/list/${username}`} passHref>
           <Link color="orange.500" fontWeight="bold">View my list</Link>
         </NextLink>
       </Box>
-      <Stack spacing={[4, 10]} pt={10}>
+      <Stack spacing={[4, 10]} pt={[4, 10]} >
         <Box>
           <HStack>
             <Input placeholder="Hunger Games" value={searchValue} onChange={handleChange} />
@@ -83,15 +83,17 @@ const SearchResult: FunctionComponent<{ result: OpenLibraryBook[] }> = ({ result
     }
   }
   return (
-    <Stack spacing={3} maxH={300} overflowY="scroll">
+    <Box>
       {successMessage && <Text fontWeight="bold" color="green.500">{successMessage}</Text>}
       {errorMessage && <Text color="red.500">{errorMessage}</Text>}
-      {result.map((book, i) => (
-        <BookListItem title={book.title} author={book.author_name[0]} key={`${book.title}-${Math.random()}`}>
-          <Button size="sm" onClick={() => handleAdd(book)} isLoading={loading}>Add to list</Button>
-        </BookListItem>
-      ))}
-      {result.length === 0 && <Text color="red.500">No Results Found</Text>}
-    </Stack>
+      <Stack spacing={6}>
+        {result.map((book, i) => (
+          <BookListItem title={book.title} author={book.author_name[0]} key={`${book.title}-${Math.random()}`}>
+            <Button size="sm" onClick={() => handleAdd(book)} isLoading={loading}>Add to list</Button>
+          </BookListItem>
+        ))}
+        {result.length === 0 && <Text color="red.500">No Results Found</Text>}
+      </Stack>
+    </Box>
   )
 }
