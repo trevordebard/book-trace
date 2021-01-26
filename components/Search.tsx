@@ -17,6 +17,7 @@ export const Search: FunctionComponent = () => {
   const { username } = useUser()
 
   const handleChange = e => setSearchValue(e.target.value)
+  const handleKeyDown = e => e.key === 'Enter' && handleSearch(e)
 
   const handleSearch = async e => {
     e.preventDefault()
@@ -44,10 +45,10 @@ export const Search: FunctionComponent = () => {
           <Link color="orange.500" fontWeight="bold">View my list</Link>
         </NextLink>
       </Box>
-      <Stack spacing={[4, 10]} pt={[4, 10]} >
+      <Stack spacing={[4, 10]} pt={4} >
         <Box>
           <HStack>
-            <Input placeholder="Hunger Games" value={searchValue} onChange={handleChange} />
+            <Input placeholder="Hunger Games" value={searchValue} onChange={handleChange} onKeyDown={handleKeyDown} />
             <Button isLoading={loading} colorScheme="orange" onClick={handleSearch} disabled={loading}>
               Search
             </Button>
@@ -88,7 +89,7 @@ const SearchResult: FunctionComponent<{ result: OpenLibraryBook[] }> = ({ result
       {errorMessage && <Text color="red.500">{errorMessage}</Text>}
       <Stack spacing={6}>
         {result.map((book, i) => (
-          <BookListItem title={book.title} author={book.author_name[0]} key={`${book.title}-${Math.random()}`}>
+          <BookListItem title={book.title} author={book.author_name?.[0]} key={`${book.title}-${Math.random()}`}>
             <Button size="sm" onClick={() => handleAdd(book)} isLoading={loading}>Add to list</Button>
           </BookListItem>
         ))}
