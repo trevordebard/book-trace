@@ -8,7 +8,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const username = context.query.username?.toString()
   let books: Book[];
   try {
-    books = await prisma.book.findMany({ where: { User: { username } } })
+    books = await prisma.book.findMany({ where: { User: { username } }, orderBy: { title: 'asc' } })
   } catch (e) {
     books = []
   }
