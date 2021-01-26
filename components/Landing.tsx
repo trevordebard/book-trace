@@ -26,7 +26,7 @@ export const Landing: FunctionComponent = () => {
   return (
     <Card>
       <Stack spacing={[5, 10]}>
-        <Heading size="3xl">Book Trace</Heading>
+        <Heading size="3xl" textAlign="center">Book Trace</Heading>
         <Box>
           <FormLabel>Type a Username to Begin</FormLabel>
           <HStack>
