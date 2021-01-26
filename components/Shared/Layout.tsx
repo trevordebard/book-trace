@@ -3,7 +3,6 @@ import { FunctionComponent } from "react";
 
 export const Layout: FunctionComponent = ({ children }) => (
   <Flex
-    minH="100vh"
     justify="center"
     align="center"
     direction="column"
