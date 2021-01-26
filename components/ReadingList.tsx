@@ -1,5 +1,5 @@
 
-import { Heading, Stack, Button, Text, Box } from "@chakra-ui/react";
+import { Heading, Stack, Button, Text, Box, Link } from "@chakra-ui/react";
 import { FunctionComponent, useState } from "react";
 import { Card } from "components/Shared/Card";
 import { Book } from "@prisma/client";
@@ -7,6 +7,7 @@ import { BookListItem } from "./Shared/BookListItem";
 import { toggleBookComplete } from "lib/toggleBookComplete";
 import { useRouter } from 'next/router';
 import { CheckIcon } from "@chakra-ui/icons";
+import NextLink from "next/link";
 
 interface ReadingListProps {
   books: Book[]
@@ -14,8 +15,15 @@ interface ReadingListProps {
 export const ReadingList: FunctionComponent<ReadingListProps> = ({ books }) => {
   return (
     <Card>
-      <Heading size="3xl" textAlign="center">My List</Heading>
-      <Stack spacing={10} pt={10}>
+      <Box textAlign="center">
+        <Heading size="3xl" mb={2}>My List</Heading>
+        <NextLink href="/search" passHref>
+          <Link color="orange.500" fontWeight="bold">
+            Search for books
+         </Link>
+        </NextLink>
+      </Box>
+      <Stack spacing={[4, 10]} pt={10}>
         <Box overflowY="scroll" maxH={300}>
           <ReadingItems books={books} />
         </Box>
@@ -23,7 +31,6 @@ export const ReadingList: FunctionComponent<ReadingListProps> = ({ books }) => {
     </Card>
   )
 }
-
 
 const ReadingItems: FunctionComponent<{ books: Book[] }> = ({ books }) => {
   const router = useRouter()

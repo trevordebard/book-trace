@@ -6,12 +6,15 @@ import { searchBook } from 'lib/searchBook'
 import { addBookToList } from "lib/addBookToList";
 import { useUser } from "lib/User/useUser";
 import { BookListItem } from "./Shared/BookListItem";
+import NextLink from "next/link";
+import { Link } from "@chakra-ui/react"
 
 export const Search: FunctionComponent = () => {
   const [searchValue, setSearchValue] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   const [searchResult, setSearchResult] = useState<null | OpenLibraryBook[]>(null)
+  const { username } = useUser()
 
   const handleChange = e => setSearchValue(e.target.value)
 
@@ -35,8 +38,13 @@ export const Search: FunctionComponent = () => {
   }
   return (
     <Card>
-      <Heading size="3xl" textAlign="center">Search for a Book</Heading>
-      <Stack spacing={10} pt={10}>
+      <Box textAlign="center">
+        <Heading size="3xl" mb={2}>Search for a Book</Heading>
+        <NextLink href={`/list/${username}`} passHref>
+          <Link color="orange.500" fontWeight="bold">View my list</Link>
+        </NextLink>
+      </Box>
+      <Stack spacing={[4, 10]} pt={10}>
         <Box>
           <HStack>
             <Input placeholder="Hunger Games" value={searchValue} onChange={handleChange} />
