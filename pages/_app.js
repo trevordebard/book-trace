@@ -2,6 +2,7 @@ import Head from "next/head"
 import { ChakraProvider } from "@chakra-ui/react"
 import { UserContext } from "lib/User/UserContext";
 import { useLocalStorage } from "lib/useLocalStorage";
+import { Layout } from "components/Shared/Layout";
 
 function MyApp({ Component, pageProps }) {
   const [username, setUsername] = useLocalStorage('username', '')
@@ -12,7 +13,9 @@ function MyApp({ Component, pageProps }) {
           <title>Book Trace</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </UserContext.Provider>
     </ChakraProvider>
   )
