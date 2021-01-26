@@ -87,7 +87,7 @@ const SearchResult: FunctionComponent<{ result: OpenLibraryBook[] }> = ({ result
     <Box>
       {successMessage && <Text fontWeight="bold" color="green.500">{successMessage}</Text>}
       {errorMessage && <Text color="red.500">{errorMessage}</Text>}
-      <Stack spacing={6}>
+      <Stack spacing={6} overflowY="scroll" maxH={300}>
         {result.map((book, i) => (
           <BookListItem title={book.title} author={book.author_name?.[0]} key={`${book.title}-${Math.random()}`}>
             <Button size="sm" onClick={() => handleAdd(book)} isLoading={loading}>Add to list</Button>
