@@ -36,7 +36,7 @@ This is a simple open source REST API that can be used to search for books by ti
 #### `/pages/list/[username].tsx`
 
 - This page is where users can view their reading list. The page is server rendered, so the data is fetched directly on the server and the fully rendered page is delivered to the client. 
-  - This page can be accessed by visiting https://books.trevordebard.com/list/[your_username]. It is also linked to after logging in.
+  - This page can be accessed by visiting books.trevordebard.com/list/[your_username]. It is also linked to after logging in.
 
 ## How To Use
 
