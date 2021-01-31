@@ -1,2 +1,3 @@
-import { Decision } from 'components/Decision'
-export default Decision
+import { Decision } from 'components/Decision';
+
+export default Decision;

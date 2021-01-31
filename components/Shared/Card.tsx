@@ -1,7 +1,10 @@
-import { Box, BoxProps } from "@chakra-ui/react";
-import { FunctionComponent } from "react";
+import { Box, BoxProps } from '@chakra-ui/react';
+import { FunctionComponent, PropsWithChildren } from 'react';
 
-export const Card: FunctionComponent<BoxProps> = ({ children, ...props }) => (
+export const Card: FunctionComponent<BoxProps> = ({
+  children,
+  ...props
+}: PropsWithChildren<BoxProps>) => (
   <Box
     width="2xl"
     maxW="90vw"
@@ -15,4 +18,4 @@ export const Card: FunctionComponent<BoxProps> = ({ children, ...props }) => (
   >
     {children}
   </Box>
-)
+);

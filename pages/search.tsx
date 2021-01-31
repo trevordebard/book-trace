@@ -1,2 +1,3 @@
-import { Search } from 'components/Search'
-export default Search
+import { Search } from 'components/Search';
+
+export default Search;
