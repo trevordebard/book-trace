@@ -1,26 +1,27 @@
-import axios, { AxiosResponse } from 'axios'
+import axios, { AxiosResponse } from 'axios';
 import { OpenLibraryBook } from 'types';
 
 interface SearchOpenLibraryResponse {
-  numFound: number,
-  docs: OpenLibraryBook[]
+  numFound: number;
+  docs: OpenLibraryBook[];
 }
 interface SearchBookResponse {
-  books: OpenLibraryBook[],
-  error?: string
+  books: OpenLibraryBook[];
+  error?: string;
 }
 
 export async function searchBook(title: string): Promise<SearchBookResponse> {
-  title = title.replaceAll(' ', '+')
+  const formattedTitle = title.replaceAll(' ', '+');
   let res: AxiosResponse<SearchOpenLibraryResponse>;
   try {
-    res = await axios.get('https://openlibrary.org/search.json', { params: { q: title, limit: 7 } });
+    res = await axios.get('https://openlibrary.org/search.json', {
+      params: { q: formattedTitle, limit: 7 },
+    });
     if (res.data.numFound > 0) {
-      return { books: res.data.docs }
-    } else {
-      return { books: [] }
+      return { books: res.data.docs };
     }
+    return { books: [] };
   } catch (e) {
-    return { books: [], error: "There was an error searching" }
+    return { books: [], error: 'There was an error searching' };
   }
 }

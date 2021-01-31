@@ -1,7 +1,9 @@
-import { createContext } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-empty-function */
+import { createContext } from 'react';
 
 const User = {
   username: '',
-  setUsername: (username: string) => { }
-}
+  setUsername: (username: string) => {},
+};
 export const UserContext = createContext(User);

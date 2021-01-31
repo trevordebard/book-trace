@@ -1,7 +1,12 @@
-import { Flex } from "@chakra-ui/react";
-import { FunctionComponent } from "react";
+import { Flex } from '@chakra-ui/react';
+import { FunctionComponent, ReactNode } from 'react';
 
-export const Layout: FunctionComponent = ({ children }) => (
+interface LayoutProps {
+  children: ReactNode;
+}
+export const Layout: FunctionComponent<LayoutProps> = ({
+  children,
+}: LayoutProps) => (
   <Flex
     justify="center"
     align="center"
@@ -11,4 +16,4 @@ export const Layout: FunctionComponent = ({ children }) => (
   >
     {children}
   </Flex>
-)
+);

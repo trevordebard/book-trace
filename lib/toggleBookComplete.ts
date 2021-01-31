@@ -1,15 +1,24 @@
-import axios from "axios";
+import axios from 'axios';
 
 interface markBookCompleteResponse {
-  success: boolean,
-  errorMessage?: string
+  success: boolean;
+  errorMessage?: string;
 }
 
-export async function toggleBookComplete(bookId: number, complete: boolean): Promise<markBookCompleteResponse> {
+export async function toggleBookComplete(
+  bookId: number,
+  complete: boolean,
+): Promise<markBookCompleteResponse> {
   try {
-    await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/book`, { id: bookId, complete })
-    return { success: true }
+    await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/book`, {
+      id: bookId,
+      complete,
+    });
+    return { success: true };
   } catch (e) {
-    return { success: false, errorMessage: `There was a problem completing book` }
+    return {
+      success: false,
+      errorMessage: `There was a problem completing book`,
+    };
   }
 }
