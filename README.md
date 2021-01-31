@@ -13,7 +13,7 @@ Application that allows users to build and maintain an active reading list.
 
 ## Data fetching
 
-### [OpenLirary API](https://openlibrary.org/developers/api)
+### [OpenLibrary API](https://openlibrary.org/developers/api)
 
 This is a simple open source REST API that can be used to search for books by title. When a user searches for a book, I make a request to the OpenLibrary API to retrieve a list of books that match the title provided by the user.
   - Related Files
