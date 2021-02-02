@@ -7,12 +7,12 @@ interface addBookToListResponse {
 }
 
 export async function addBookToList(
-  username: string,
+  email: string,
   book: OpenLibraryBook,
 ): Promise<addBookToListResponse> {
   try {
     await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/book`, {
-      username,
+      email,
       ...book,
     });
     return { success: true };
