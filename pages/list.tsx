@@ -5,15 +5,18 @@ import { getSession } from 'next-auth/client';
 
 export default ReadingList;
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const prisma = new PrismaClient();
   const session = await getSession({ req });
   if (!session) {
-    res.statusCode = 302;
-    res.setHeader('Location', '/login');
-    res.end();
-    return { props: {} };
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/login',
+      },
+    };
   }
+
   let books: Book[];
   try {
     books = await prisma.book.findMany({
