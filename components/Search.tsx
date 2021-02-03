@@ -6,14 +6,12 @@ import {
   Button,
   Text,
   Box,
-  Link,
 } from '@chakra-ui/react';
 import { FunctionComponent, useState } from 'react';
 import { Card } from 'components/Shared/Card';
 import { OpenLibraryBook } from 'types';
 import { searchBook } from 'lib/searchBook';
 import { addBookToList } from 'lib/addBookToList';
-import NextLink from 'next/link';
 import { useSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import { BookListItem } from './Shared/BookListItem';
@@ -61,11 +59,6 @@ export const Search: FunctionComponent = () => {
         <Heading size="2xl" mb={2}>
           Search for a Book
         </Heading>
-        <NextLink href="/list" passHref>
-          <Link color="orange.500" fontWeight="bold">
-            View my list
-          </Link>
-        </NextLink>
       </Box>
       <Stack spacing={[4, 10]} pt={4}>
         <Box>

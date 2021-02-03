@@ -22,8 +22,8 @@ export const Login: FunctionComponent = () => {
   return (
     <Card>
       <Stack spacing={[5, 10]}>
-        <Heading size="3xl" textAlign="center">
-          Book Trace
+        <Heading size="xl" textAlign="center">
+          Login / Signup
         </Heading>
         <Box>
           <VStack justify="center" align="center" spacing={3}>
