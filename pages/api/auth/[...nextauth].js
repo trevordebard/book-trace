@@ -11,6 +11,14 @@ export default NextAuth({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
+    Providers.Twitter({
+      clientId: process.env.TWITTER_CLIENT_ID,
+      clientSecret: process.env.TWITTER_CLIENT_SECRET
+    })
   ],
+  pages: {
+    signIn: '/login',
+  },
+
   adapter: Adapters.Prisma.Adapter({ prisma }),
 });

@@ -1,5 +1,5 @@
 import { Box, Button, Heading, Stack, Text, VStack } from '@chakra-ui/react';
-import { FaGoogle } from 'react-icons/fa';
+import { FaGoogle, FaTwitter } from 'react-icons/fa';
 import { FunctionComponent } from 'react';
 import { Card } from 'components/Shared/Card';
 import { useSession, signIn, signOut } from 'next-auth/client';
@@ -34,6 +34,14 @@ export const Login: FunctionComponent = () => {
               onClick={() => signIn('google')}
             >
               Continue with Google
+            </Button>
+            <Button
+              alignItems="center"
+              justifyContent="center"
+              leftIcon={<FaTwitter />}
+              onClick={() => signIn('twitter')}
+            >
+              Continue with Twitter
             </Button>
           </VStack>
         </Box>
