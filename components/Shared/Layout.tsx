@@ -18,11 +18,11 @@ export const Layout: FunctionComponent<LayoutProps> = ({
       {session && <Nav />}
       <Flex
         grow={1}
-        justify="center"
+        justify={['flex-start', 'center']}
         align="center"
         direction="column"
         bg="gray.100"
-        py={10}
+        pb={10}
       >
         {children}
       </Flex>

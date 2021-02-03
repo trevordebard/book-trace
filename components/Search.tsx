@@ -56,7 +56,7 @@ export const Search: FunctionComponent = () => {
   return (
     <Card>
       <Box textAlign="center">
-        <Heading size="2xl" mb={2}>
+        <Heading size="xl" mb={2}>
           Search for a Book
         </Heading>
       </Box>
@@ -121,7 +121,7 @@ const SearchResult: FunctionComponent<ResultProps> = ({
         </Text>
       )}
       {errorMessage && <Text color="red.500">{errorMessage}</Text>}
-      <Stack spacing={6} overflowY="scroll" maxH={300}>
+      <Stack spacing={6} overflowY="scroll" maxH={400}>
         {result.map((book) => (
           <BookListItem
             title={book.title}

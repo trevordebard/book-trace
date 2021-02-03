@@ -21,7 +21,7 @@ export const ReadingList: FunctionComponent<ReadingListProps> = ({
         </Heading>
       </Box>
       <Stack spacing={[4, 10]} pt={[4, 10]}>
-        <Box overflowY="scroll" maxH={300}>
+        <Box overflowY="scroll" maxH={400}>
           <ReadingItems books={books} />
         </Box>
       </Stack>
