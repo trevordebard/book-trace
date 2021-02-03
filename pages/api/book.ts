@@ -9,14 +9,14 @@ export default async function handle(
 
   switch (method) {
     case 'POST': {
-      const { title, author_name, subject, username } = req.body;
+      const { title, author_name, subject, email } = req.body;
       const createResult = await prisma.book.create({
         data: {
           title,
           author_name,
           subject,
           User: {
-            connectOrCreate: { where: { username }, create: { username } },
+            connectOrCreate: { where: { email }, create: { email } },
           },
         },
       });

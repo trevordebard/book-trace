@@ -1,20 +1,19 @@
-import { Search } from 'components/Search';
+import { Login } from 'components/Login';
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/client';
 
-export default Search;
+export default Login;
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
-  if (!session) {
+  if (session) {
     return {
       redirect: {
         permanent: false,
-        destination: '/login',
+        destination: '/list',
       },
     };
   }
-
   return {
     props: {},
   };

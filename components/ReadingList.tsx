@@ -5,7 +5,6 @@ import { Book } from '@prisma/client';
 import { toggleBookComplete } from 'lib/toggleBookComplete';
 import { useRouter } from 'next/router';
 import { CheckIcon } from '@chakra-ui/icons';
-import NextLink from 'next/link';
 import { BookListItem } from './Shared/BookListItem';
 
 interface ReadingListProps {
@@ -20,11 +19,6 @@ export const ReadingList: FunctionComponent<ReadingListProps> = ({
         <Heading size="2xl" mb={2}>
           My List
         </Heading>
-        <NextLink href="/search" passHref>
-          <Link color="orange.500" fontWeight="bold">
-            Search for books
-          </Link>
-        </NextLink>
       </Box>
       <Stack spacing={[4, 10]} pt={[4, 10]}>
         <Box overflowY="scroll" maxH={300}>

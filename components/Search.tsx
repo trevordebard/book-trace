@@ -6,26 +6,33 @@ import {
   Button,
   Text,
   Box,
-  Link,
 } from '@chakra-ui/react';
 import { FunctionComponent, useState } from 'react';
 import { Card } from 'components/Shared/Card';
 import { OpenLibraryBook } from 'types';
 import { searchBook } from 'lib/searchBook';
 import { addBookToList } from 'lib/addBookToList';
-import { useUser } from 'lib/User/useUser';
-import NextLink from 'next/link';
-
+import { useSession } from 'next-auth/client';
+import { useRouter } from 'next/router';
 import { BookListItem } from './Shared/BookListItem';
 
 export const Search: FunctionComponent = () => {
+  const [session, sessionLoading] = useSession();
+  const router = useRouter();
   const [searchValue, setSearchValue] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [searchResult, setSearchResult] = useState<null | OpenLibraryBook[]>(
     null,
   );
-  const { username } = useUser();
+
+  if (sessionLoading) {
+    return null;
+  }
+  if (!session) {
+    router.push('/login');
+    return null;
+  }
 
   const handleChange = (e) => setSearchValue(e.target.value);
   const handleKeyDown = (e) => e.key === 'Enter' && handleSearch(e);
@@ -52,11 +59,6 @@ export const Search: FunctionComponent = () => {
         <Heading size="2xl" mb={2}>
           Search for a Book
         </Heading>
-        <NextLink href={`/list/${username}`} passHref>
-          <Link color="orange.500" fontWeight="bold">
-            View my list
-          </Link>
-        </NextLink>
       </Box>
       <Stack spacing={[4, 10]} pt={4}>
         <Box>
@@ -90,19 +92,19 @@ interface ResultProps {
 const SearchResult: FunctionComponent<ResultProps> = ({
   result,
 }: ResultProps) => {
-  const { username } = useUser();
   const [loading, setLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [successMessage, setSuccessMessage] = useState<string>('');
+  const [session] = useSession();
 
   const handleAdd = async (book: OpenLibraryBook) => {
-    if (!username) {
+    if (!session?.user) {
       setErrorMessage('You are not logged in');
     } else {
       setErrorMessage('');
       setSuccessMessage('');
       setLoading(true);
-      const res = await addBookToList(username, book);
+      const res = await addBookToList(session.user.email, book);
       if (res.success) {
         setSuccessMessage(`${book.title} added!`);
       } else if (res.errorMessage) {
