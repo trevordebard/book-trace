@@ -8,6 +8,7 @@ Application that allows users to build and maintain an active reading list.
 - Next.js
 - TypeScript
 - Postgres database with Prisma as ORM
+- NextAuth
 - Chakra UI
 - Axios
 
@@ -40,16 +41,14 @@ This is a simple open source REST API that can be used to search for books by ti
 
 ## How To Use
 
-1. Type in a username you would like to use and click "Go". If you have already used the application before, you can reuse your previous username to see your saved reading list.
-2. Select "Search for a book."
-3. Enter the name of a book you'd like to read and click "Search."
+1. Login using one of the provided authentication providers. 
+3. When logging in for the first time, your reading list will be empty. Visit the search page, type the name of a book you want to read, and click "Search."
 4. Find the result that matches what you want to read and click "Add to list."
-5. View your list my clicking the "View my list" link at the top or by going to the previous page and clicking "View my reading list."
+5. View your list my clicking the "My List" link at the top of the page.
 6. Books that you have added are visible on this page. When you have finished reading a book, you can click "Mark as Read" to complete it. 
 
 ## Next Steps
 - When a button is pressed, all buttons display a loading spinner. This should be updated so that just the button pressed displays a loading spinner.
 - When a book is added to a list, I refresh the router to pull in the user's list from the server. This causes a slight delay from when loading ends to the book being updated with a "Read" status. This could be avoided with an optimistic response in state.
 - When a user searches for a book, it would be helpful to display book covers so they can make sure they are adding the correct book.
-- Right now anyone could use another person's username and modify/view that person's list. Full password authentication should be added to prevent this.
 - Users should have the ability to remove a book from a reading list.
