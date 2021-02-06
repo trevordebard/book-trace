@@ -3,26 +3,29 @@ import {
   Button,
   Heading,
   HStack,
+  Stack,
   StackItem,
-  useBreakpointValue,
 } from '@chakra-ui/react';
 import { signOut } from 'next-auth/client';
 import Link from 'next/link';
 import { FC } from 'react';
 
 export const Nav: FC = () => {
-  const largeScreen = useBreakpointValue({ sm: true });
   return (
     <Box as="nav" w="100%" bg="gray.100">
-      <HStack
-        py={8}
+      <Stack
+        py={[5, 8]}
         maxW="90vw"
         w={['md', 'lg', '2xl']}
         justifyContent={['center', 'space-between']}
+        align="center"
         mx="auto"
         fontWeight="500"
+        direction={['column', 'row']}
       >
-        {largeScreen && <Heading size="md">Book Trace</Heading>}
+        <Box>
+          <Heading fontSize={['4xl', 'xl']}>Book Trace</Heading>
+        </Box>
         <HStack spacing={5}>
           <StackItem>
             <Link href="/list">
@@ -46,7 +49,7 @@ export const Nav: FC = () => {
             </Button>
           </StackItem>
         </HStack>
-      </HStack>
+      </Stack>
     </Box>
   );
 };
