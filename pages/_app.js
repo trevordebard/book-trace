@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }) {
       <ChakraProvider>
         <Head>
           <title>Book Trace</title>
-          <link rel="icon" href="/favicon.ico" />
+          <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         </Head>
         <Layout>
           <Component {...pageProps} />
