@@ -1,14 +1,14 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, FlexProps } from '@chakra-ui/react';
 import { useSession } from 'next-auth/client';
-import { FunctionComponent, ReactNode } from 'react';
+import { FunctionComponent, PropsWithChildren } from 'react';
 import { Nav } from './Nav';
 
 interface LayoutProps {
-  children: ReactNode;
+  contentProps: FlexProps;
 }
 export const Layout: FunctionComponent<LayoutProps> = ({
   children,
-}: LayoutProps) => {
+}: PropsWithChildren<LayoutProps>) => {
   const [session, sessionLoading] = useSession();
   if (sessionLoading) {
     return null;
@@ -18,7 +18,7 @@ export const Layout: FunctionComponent<LayoutProps> = ({
       {session && <Nav />}
       <Flex
         grow={1}
-        justify={['flex-start', 'center']}
+        justify={[session ? 'flex-start' : 'center', 'center']}
         align="center"
         direction="column"
         bg="gray.100"
